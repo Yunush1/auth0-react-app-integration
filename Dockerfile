@@ -44,6 +44,5 @@ EXPOSE 3001
 
 ENV SERVER_PORT=3000
 ENV API_PORT=3001
-ENV NODE_ENV production
 
 CMD ["yarn", "prod"]
