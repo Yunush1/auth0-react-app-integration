@@ -2,7 +2,7 @@ import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 
-import Loading from './components/Loading'
+// import Loading from './components/Loading'
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Home from "./views/Home";
@@ -19,7 +19,7 @@ import initFontAwesome from "./utils/initFontAwesome";
 initFontAwesome();
 
 const App = () => {
-  const { isLoading, error } = useAuth0();
+  const { error } = useAuth0();
 
   if (error) {
     return <div>Oops... {error.message}</div>;
