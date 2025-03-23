@@ -4,5 +4,5 @@
   "audience":"auth integration api",
   "scope":"openid profile email roles",
   "redirectUri": "http://localhost:3000",
-  "apiOrigin":"https://auth0-nodejs-backend-production.up.railway.app/"
+  "apiOrigin":"https://auth0-nodejs-backend-production.up.railway.app"
 }

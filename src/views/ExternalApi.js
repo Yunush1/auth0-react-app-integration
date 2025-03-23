@@ -1,20 +1,27 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Button, Alert } from "reactstrap";
 import Highlight from "../components/Highlight";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { getConfig } from "../config";
-import Loading from "../components/Loading";
 import usePermission from '../hooks/usePermission'
+
 export const ExternalApiComponent = () => {
 
   const { apiOrigin, audience } = getConfig();
-  const { hasPermission} = usePermission()
+  const { hasPermission, role} = usePermission()
   const [state, setState] = useState({
     isLoading: false,
     showResult: false,
     apiMessage: "",
     error: null,
   });
+
+  useEffect(()=>{
+      if(!hasPermission){
+        alert("Opps! You are not authorized")
+        return ;
+      }
+  },[hasPermission])
 
   const { getAccessTokenSilently, loginWithPopup, getAccessTokenWithPopup } =
     useAuth0();
@@ -58,7 +65,7 @@ export const ExternalApiComponent = () => {
 
       setState({ isLoading: true })
       const accessToken = sessionStorage.getItem("accessToken")
-      console.log(accessToken)
+
       const token = accessToken === null ? await getAccessTokenSilently() : accessToken;
       if(!token){
         return setState({
@@ -124,7 +131,7 @@ export const ExternalApiComponent = () => {
           </Alert>
         )}
 
-        <h1>External API</h1>
+        <h1>You have <span style={{color:'red'}}>{role}</span> access</h1>
         <p className="lead">
           Ping an external API by clicking the button below.
         </p>
@@ -182,13 +189,23 @@ export const ExternalApiComponent = () => {
           </Alert>
         )}
 
+       <div style={{display:'flex', gap:10}}>
+       <Button
+          color="primary"
+
+          onClick={() => { callApi('auth/admin') }}
+          disabled={!audience}
+        >{ "Admin Send New Request"}
+        </Button>
         <Button
           color="primary"
 
-          onClick={() => { callApi(hasPermission ? 'auth/admin' : 'auth/user') }}
+          onClick={() => { callApi('auth/user') }}
           disabled={!audience}
-        >{state.isLoading ? "Sending Request..." : "Send New Request"}
+        >{ "User Send New Request"}
         </Button>
+       </div>
+       {state.isLoading && <Alert color="loading" >Loading....</Alert>}
       </div>
 
       <div className="result-block-container">
@@ -204,7 +221,33 @@ export const ExternalApiComponent = () => {
     </>
   );
 };
+const RedirectingScreen = () => {
+  const { loginWithRedirect } = useAuth0();
+  useEffect(() => {
+    loginWithRedirect();
+}, []); // ✅ Ensures `useEffect` runs only once
+
+  return (
+      <div style={styles.container}>
+          <h2>🔐Wait for Auto get your login creadentials or Redirecting to Login...</h2>
+          <p>Please wait while we authenticate you.</p>
+      </div>
+  );
+};
+
+// ✅ CSS for Spinner (Add in your CSS file)
+const styles = {
+  container: {
+      textAlign: "center",
+      marginTop: "50px",
+      fontSize: "18px",
+  },
+  loadingContainer:{
+    width:'20px',
+    hight:'20px'
+  }
+};
 
 export default withAuthenticationRequired(ExternalApiComponent, {
-  onRedirecting: () => <Loading />,
+  onRedirecting: () => <RedirectingScreen />,
 });
