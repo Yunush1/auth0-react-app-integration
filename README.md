@@ -91,10 +91,11 @@ Auth0 helps you to:
 
 1. Go to [Auth0](https://auth0.com) and click **Sign Up**.
 2. Use Google, GitHub, or Microsoft Account to login.
-<video src="./public/React%20SDK%20Sample%20-%20Google%20Chrome%202025-03-23%2020-38-13.mp4" controls></video>
+
 
 # Video Demostration
-[![🎥 Watch the Video](/public/Screenshot%202025-03-23%20210848.png)](./public/React%20SDK%20Sample%20-%20Google%20Chrome%202025-03-23%2020-38-13.mp4)
+<video src="./public/React%20SDK%20Sample%20-%20Google%20Chrome%202025-03-23%2020-38-13.mp4" controls></video>
+
 
 ## Issue Reporting
 
