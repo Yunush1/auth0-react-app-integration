@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Button, Alert } from "reactstrap";
 import Highlight from "../components/Highlight";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
@@ -8,7 +8,7 @@ import usePermission from '../hooks/usePermission'
 export const ExternalApiComponent = () => {
 
   const { apiOrigin, audience } = getConfig();
-  const { hasPermission, permissions, role } = usePermission()
+  const { hasPermission} = usePermission()
   const [state, setState] = useState({
     isLoading: false,
     showResult: false,
@@ -18,16 +18,7 @@ export const ExternalApiComponent = () => {
 
   const { getAccessTokenSilently, loginWithPopup, getAccessTokenWithPopup } =
     useAuth0();
-  useEffect(() => {
-    // const checkAdminRole = () => {
-    //   if (!role) return; // Prevent running when role is undefined
 
-    //   const hasAddPermission = hasPermission("add");
-      
-    // };
-
-    // checkAdminRole();
-  }, []); // Only re-run when `role` changes
   const handleConsent = async () => {
     try {
       await getAccessTokenWithPopup();
