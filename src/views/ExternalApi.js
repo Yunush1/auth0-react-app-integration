@@ -1,9 +1,11 @@
 import React, {  useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Button, Alert } from "reactstrap";
 import Highlight from "../components/Highlight";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { getConfig } from "../config";
 import usePermission from '../hooks/usePermission'
+
 
 export const ExternalApiComponent = () => {
 
@@ -15,6 +17,13 @@ export const ExternalApiComponent = () => {
     apiMessage: "",
     error: null,
   });
+
+  useEffect(()=>{
+      if(!hasPermission){
+        alert("Opps! You are not authorized")
+        return ;
+      }
+  },[hasPermission])
 
   useEffect(()=>{
       if(!hasPermission){
@@ -65,6 +74,7 @@ export const ExternalApiComponent = () => {
 
       setState({ isLoading: true })
       const accessToken = sessionStorage.getItem("accessToken")
+
 
       const token = accessToken === null ? await getAccessTokenSilently() : accessToken;
       if(!token){
@@ -132,6 +142,7 @@ export const ExternalApiComponent = () => {
         )}
 
         <h1>You have <span style={{color:'red'}}>{role}</span> access</h1>
+        <h1>You have <span style={{color:'red'}}>{role}</span> access</h1>
         <p className="lead">
           Ping an external API by clicking the button below.
         </p>
@@ -197,13 +208,24 @@ export const ExternalApiComponent = () => {
           disabled={!audience}
         >{ "Admin Send New Request"}
         </Button>
+       <div style={{display:'flex', gap:10}}>
+       <Button
+          color="primary"
+
+          onClick={() => { callApi('auth/admin') }}
+          disabled={!audience}
+        >{ "Admin Send New Request"}
+        </Button>
         <Button
           color="primary"
 
           onClick={() => { callApi('auth/user') }}
           disabled={!audience}
+        
         >{ "User Send New Request"}
         </Button>
+       </div>
+       {state.isLoading && <Alert color="loading" >Loading....</Alert>}
        </div>
        {state.isLoading && <Alert color="loading" >Loading....</Alert>}
       </div>
@@ -249,5 +271,6 @@ const styles = {
 };
 
 export default withAuthenticationRequired(ExternalApiComponent, {
+  onRedirecting: () => <RedirectingScreen />,
   onRedirecting: () => <RedirectingScreen />,
 });
