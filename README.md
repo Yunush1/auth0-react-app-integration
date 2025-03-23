@@ -94,8 +94,7 @@ Auth0 helps you to:
 
 
 # Video Demostration
-<video src="./public/React%20SDK%20Sample%20-%20Google%20Chrome%202025-03-23%2020-38-13.mp4" controls></video>
-
+[![🎥 Watch the Video](/public/Screenshot%202025-03-23%20210848.png)](https://www.youtube.com/watch?v=ac1PsLrI_Dw)
 
 ## Issue Reporting
 
