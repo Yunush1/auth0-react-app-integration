@@ -2,7 +2,7 @@
   "domain":"dev-ss8hahvk572wlra3.us.auth0.com",
   "clientId":"Rti5SLfHG6E895oRK5AQmKrOPsMuBW6Q",
   "audience":"auth integration api",
-  "scope":"openid profile email",
+  "scope":"openid profile email roles",
   "redirectUri": "http://localhost:3000",
-  "apiOrigin":"https://auth0-nodejs-backend-production.up.railway.app"
+  "apiOrigin":"https://auth0-nodejs-backend-production.up.railway.app/"
 }

@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Alert } from "reactstrap";
 import Highlight from "../components/Highlight";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { getConfig } from "../config";
 import Loading from "../components/Loading";
-
+import usePermission from '../hooks/usePermission'
 export const ExternalApiComponent = () => {
-  const [isLoading,setIsLoading] = useState(undefined)
-  const { apiOrigin , audience } = getConfig();
 
+  const { apiOrigin, audience } = getConfig();
+  const { hasPermission, permissions, role } = usePermission()
   const [state, setState] = useState({
+    isLoading: false,
     showResult: false,
     apiMessage: "",
     error: null,
@@ -17,7 +18,16 @@ export const ExternalApiComponent = () => {
 
   const { getAccessTokenSilently, loginWithPopup, getAccessTokenWithPopup } =
     useAuth0();
+  useEffect(() => {
+    // const checkAdminRole = () => {
+    //   if (!role) return; // Prevent running when role is undefined
 
+    //   const hasAddPermission = hasPermission("add");
+      
+    // };
+
+    // checkAdminRole();
+  }, []); // Only re-run when `role` changes
   const handleConsent = async () => {
     try {
       await getAccessTokenWithPopup();
@@ -52,13 +62,20 @@ export const ExternalApiComponent = () => {
     await callApi();
   };
 
-  const callApi = async () => {
+  const callApi = async (endPoint) => {
     try {
-      setIsLoading(true)
-      const token = await getAccessTokenSilently();
 
-      const response = await fetch(`${apiOrigin}/auth/callback`, {
-        method:"POST",
+      setState({ isLoading: true })
+      const accessToken = sessionStorage.getItem("accessToken")
+      console.log(accessToken)
+      const token = accessToken === null ? await getAccessTokenSilently() : accessToken;
+      if(!token){
+        return setState({
+          apiMessage:"Opps!, You are not assign any role for perform task"
+        })
+      }
+      const response = await fetch(`${apiOrigin}/${endPoint}`, {
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -68,16 +85,17 @@ export const ExternalApiComponent = () => {
 
       setState({
         ...state,
+        isLoading: false,
         showResult: true,
         apiMessage: responseData,
       });
     } catch (error) {
       setState({
         ...state,
+        isLoading: false,
+        showResult: true,
         error: error.error,
       });
-    }finally{
-      setIsLoading(false)
     }
   };
 
@@ -175,16 +193,15 @@ export const ExternalApiComponent = () => {
 
         <Button
           color="primary"
-          className="mt-5"
-          onClick={callApi}
+
+          onClick={() => { callApi(hasPermission ? 'auth/admin' : 'auth/user') }}
           disabled={!audience}
-        >
-          {isLoading? "Sending Request...":"Send New Request"}
+        >{state.isLoading ? "Sending Request..." : "Send New Request"}
         </Button>
       </div>
 
       <div className="result-block-container">
-        {state.showResult && !isLoading && (
+        {state.showResult && !state.isLoading && (
           <div className="result-block" data-testid="api-result">
             <h6 className="muted">Result</h6>
             <Highlight>

@@ -36,7 +36,7 @@ const NavBar = () => {
           returnTo: window.location.origin,
         }
     });
-
+    
   return (
     <div className="nav-container">
       <Navbar color="light" light expand="md" container={false}>
@@ -56,7 +56,8 @@ const NavBar = () => {
                 </NavLink>
               </NavItem>
               {isAuthenticated && (
-                <NavItem>
+                  <>
+                  <NavItem>
                   <NavLink
                     tag={RouterNavLink}
                     to="/external-api"
@@ -66,6 +67,17 @@ const NavBar = () => {
                     External API
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink
+                    tag={RouterNavLink}
+                    to="/check-permission"
+                    exact
+                    activeClassName="router-link-exact-active"
+                  >
+                    Check Permission
+                  </NavLink>
+                </NavItem>
+                  </>
               )}
             </Nav>
             <Nav className="d-none d-md-block" navbar>
