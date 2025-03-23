@@ -45,7 +45,7 @@ To do this, first copy `src/auth_config.json.example` into a new file in the sam
 **Note**: Do not specify a value for `audience` here if you do not wish to use the API part of the sample.
 
 ## Run the sample
-
+# Go with [Demo](https://auth0-integration-devs.netlify.app/)
 ### Compile and hot-reload for development
 
 This compiles and serves the React app and starts the backend API server on port 3001.
@@ -91,6 +91,10 @@ Auth0 helps you to:
 
 1. Go to [Auth0](https://auth0.com) and click **Sign Up**.
 2. Use Google, GitHub, or Microsoft Account to login.
+<video src="./public/React%20SDK%20Sample%20-%20Google%20Chrome%202025-03-23%2020-38-13.mp4" controls></video>
+
+# Video Demostration
+[![🎥 Watch the Video](/public/Screenshot%202025-03-23%20210848.png)](./public/React%20SDK%20Sample%20-%20Google%20Chrome%202025-03-23%2020-38-13.mp4)
 
 ## Issue Reporting
 
