@@ -1,5 +1,4 @@
 import React, {  useEffect, useState } from "react";
-import React, {  useEffect, useState } from "react";
 import { Button, Alert } from "reactstrap";
 import Highlight from "../components/Highlight";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
