@@ -271,5 +271,4 @@ const styles = {
 
 export default withAuthenticationRequired(ExternalApiComponent, {
   onRedirecting: () => <RedirectingScreen />,
-  onRedirecting: () => <RedirectingScreen />,
 });
