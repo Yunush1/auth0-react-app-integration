@@ -96,6 +96,9 @@ Auth0 helps you to:
 # Video Demostration
 [![🎥 Watch the Video](/public/Screenshot%202025-03-23%20210848.png)](./public/React%20SDK%20Sample%20-%20Google%20Chrome%202025-03-23%2020-38-13.mp4)
 
+# Video Demostration
+[![🎥 Watch the Video](/public/Screenshot%202025-03-23%20210848.png)](./public/React%20SDK%20Sample%20-%20Google%20Chrome%202025-03-23%2020-38-13.mp4)
+
 ## Issue Reporting
 
 If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/responsible-disclosure-policy) details the procedure for disclosing security issues.
