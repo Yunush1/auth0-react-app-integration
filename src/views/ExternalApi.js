@@ -140,7 +140,7 @@ export const ExternalApiComponent = () => {
           </Alert>
         )}
 
-        <h1>You have <span style={{color:'red'}}>{role}</span> access</h1>
+      
         <h1>You have <span style={{color:'red'}}>{role}</span> access</h1>
         <p className="lead">
           Ping an external API by clicking the button below.
@@ -207,14 +207,7 @@ export const ExternalApiComponent = () => {
           disabled={!audience}
         >{ "Admin Send New Request"}
         </Button>
-       <div style={{display:'flex', gap:10}}>
-       <Button
-          color="primary"
-
-          onClick={() => { callApi('auth/admin') }}
-          disabled={!audience}
-        >{ "Admin Send New Request"}
-        </Button>
+      
         <Button
           color="primary"
 
@@ -226,8 +219,8 @@ export const ExternalApiComponent = () => {
        </div>
        {state.isLoading && <Alert color="loading" >Loading....</Alert>}
        </div>
-       {state.isLoading && <Alert color="loading" >Loading....</Alert>}
-      </div>
+    
+    
 
       <div className="result-block-container">
         {state.showResult && !state.isLoading && (
